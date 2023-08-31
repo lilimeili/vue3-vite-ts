@@ -1,19 +1,24 @@
 <template>
   <div>
-    <el-cascader  v-model="initvalue" :props="props" @expand-change="(val)=>expandchange(val)"  @change="(val)=>handleChange(val)" />
+    <el-cascader :key="propsKey" v-model="initvalue" :props="props" 
+     @expand-change="(val)=>expandchange(val)" @change="handleChange"/>
   </div>
 </template>
 
 <script lang="ts">
 import {sysdicposition_listTop,sysdicposition_listBypkey} from '../request/api'
-import { reactive,toRefs, defineExpose} from 'vue'
+import { reactive,toRefs, defineExpose,ref,watch, onMounted} from 'vue'
 import type { CascaderProps } from 'element-plus'
 export default {
     setup(){
-        // const cander = ref()
+        const cander = ref()
         const state = reactive({
             initvalue:[],
-            props: {
+            propsKey:0
+        })
+        const props = reactive({
+            // initvalue:[],
+             props: {
             lazy: true,
             async lazyLoad(node, resolve) {
                 console.log(node)
@@ -42,12 +47,12 @@ export default {
             leaf: "",
             expandTrigger: "click",
             emitPath: true,
+            checkStrictly:true,
         }
         })
        
         const handleChange = (val)=>{
-            console.log('value',val)
-           console.log(state.initvalue)
+            state.propsKey++
         }
         const expandchange = (val)=>{
             console.log(val)
@@ -57,15 +62,21 @@ export default {
             let nVal = val[i].split('_')[0];
            arr.push(nVal)
            }
-           console.log(arr)
+           state.initvalue = arr
+           console.log('state.initvalue',state.initvalue)
         }
-        defineExpose({
-            state
+        onMounted(()=>{
+           
         })
+        // watch(state.initvalue,(newVal,oldVal)=>{
+        //     state.initvalue = newVal
+        // })
         return{
+             ...toRefs(props),
             ...toRefs(state),
+            // num,
             handleChange,
-            expandchange
+            expandchange,
         }
     },
 }
