@@ -1,0 +1,21 @@
+{
+
+  "compilerOptions": {
+    // ...
+    "baseUrl": "./",  // 这里需要配置
+    "paths": {
+      "@/*": ["./src/*"]  // 这里需要配置
+    }
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    },
+    {
+      "path": "./tsconfig.app.json"
+    }
+  ],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "exclude": ["node_modules"]
+}
