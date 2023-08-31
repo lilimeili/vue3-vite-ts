@@ -70,7 +70,7 @@ import {catesave,getlist,gettablelist} from '@/request/api.ts'
             pageSize: 10,
           total:0
         }
-        let result = await gettablelist(data1)
+        let result = await gettablelist(data1) // 显著的用的是aysnc 和 await ,而且要结构赋值，通过obj.age 这种形式拿不到值，
         // state.tableData = state.tableData.concat(obj)
        }
      

@@ -47,7 +47,7 @@ export default {
             leaf: "",
             expandTrigger: "click",
             emitPath: true,
-            checkStrictly:true,
+            checkStrictly:true, //加入这个配置之后，输入框的值正常显示
         }
         })
        
@@ -62,7 +62,7 @@ export default {
             let nVal = val[i].split('_')[0];
            arr.push(nVal)
            }
-           state.initvalue = arr
+           state.initvalue = arr 
            console.log('state.initvalue',state.initvalue)
         }
         onMounted(()=>{
@@ -72,9 +72,9 @@ export default {
         //     state.initvalue = newVal
         // })
         return{
-             ...toRefs(props),
+             ...toRefs(props), //暴露出去之后，模板读的是这个对象里边的数据
             ...toRefs(state),
-            // num,
+            // num, //如果是这种方式暴露，模板读取的是这个变量，比上边少一层
             handleChange,
             expandchange,
         }
