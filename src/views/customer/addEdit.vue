@@ -1,7 +1,7 @@
 <template>
   <div>
-    <el-dialog v-model="dialogFormVisible" :title="title">
-    <el-form :model="form">
+    <el-dialog v-model="dialogFormVisible" :title="title" v-if="dialogFormVisible">
+    <el-form :model="form" :disabled="type == 'see'">
       <el-form-item label="级别" :label-width="formLabelWidth">
         <el-select v-model="form.parentId" placeholder="Please select a zone">
           <el-option v-for="item in typelist" :key="item.value" :label="item.typeName" :value="item.id">
@@ -16,7 +16,7 @@
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取消</el-button>
-        <el-button type="primary" @click="bindadd">
+        <el-button type="primary" @click="bindadd" v-if="type != 'see'">
           提交
         </el-button>
       </span>
@@ -83,7 +83,7 @@ export default {
         }
         
       }
-      defineExpose({
+      defineExpose({  //把组件内数据暴露出去，子组件能获取到
         dialogFormVisible,
         state,
     })
